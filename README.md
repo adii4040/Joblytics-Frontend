@@ -164,20 +164,3 @@ npm run build
 # Preview production build
 npm run preview
 ```
-
-## 🎨 Design Features
-
-- **Dark Theme First**: Modern dark UI with slate color palette
-- **Consistent Spacing**: 4px-based spacing system
-- **Rounded Corners**: 8px radius for soft appearance
-- **Color System**: 
-  - Primary: Blue (#3b82f6)
-  - Success: Green (#10b981)
-  - Warning: Yellow (#fbbf24)
-  - Error: Red (#ef4444)
-  - Accent: Purple (#8b5cf6)
-- **Typography**: Clean sans-serif with weight hierarchy
-- **Animations**: Smooth transitions and hover effects
-- **Responsive**: Mobile-first design approach
-- **Accessibility**: WCAG compliant color contrast
-c
