@@ -20,6 +20,7 @@ export default function useDeleteApplication() {
                     },
                 };
             });
+            qc.invalidateQueries({ queryKey: ["analytics"] });
             console.log("Application deleted successfully, cache updated");
             toast.success("Application deleted successfully!");
         },

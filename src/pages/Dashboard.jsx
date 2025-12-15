@@ -13,8 +13,9 @@ import useFetchAnalytics from '../hooks/useAnalytics/useFetchAnalytics'
 export default function Dashboard() {
   const { data, isLoading: userLoading, isError: userError } = useCurrentUser()
   const { data: applicationsData, isLoading: appsLoading, isError: appsError } = useFetchApplications()
-  const { data: analyticsData, isLoading: analyticsLoading, isError: analyticsError } = useFetchAnalytics()
+  const { data: analyticsData, isLoading: analyticsLoading, isError: analyticsError } = useFetchAnalytics('all')
   const navigate = useNavigate()
+  console.log(applicationsData)
 
   const user = data?.data?.user
   if (applicationsData) {

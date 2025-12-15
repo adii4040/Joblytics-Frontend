@@ -11,6 +11,8 @@ export default function useUploadApplications() {
         onSuccess: (response) => {
             // Invalidate and refetch applications after a successful upload
             qc.invalidateQueries({ queryKey: ["applications"] });
+            qc.invalidateQueries({ queryKey: ["analytics"] });
+
             console.log("Upload success, cache invalidated", response);
             toast.success("Application added successfully!");
             navigate("/applications");

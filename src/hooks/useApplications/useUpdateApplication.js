@@ -31,6 +31,8 @@ export default function useUpdateApplication() {
                 };
             });
 
+            qc.invalidateQueries({ queryKey: ["analytics"] });
+
             console.log("Application updated successfully, cache updated", response, appId);
             toast.success("Application updated successfully!");
         },
