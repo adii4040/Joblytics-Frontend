@@ -1,7 +1,5 @@
 // Utility builders for analytics UI data
-export const metricCardConfigs = (
-  analytics = {}
-) => [
+export const metricCardConfigs = (analytics = {}) => [
   { label: 'Total Applications', value: analytics.totalApplications || 0, color: 'from-[#0a1f3a] to-[#0a1f3a]', iconBg: 'bg-[#2457ff]' },
   { label: 'Accepted', value: analytics.accepted || 0, color: 'from-[#0d2818] to-[#0d2818]', iconBg: 'bg-[#16a34a]' },
   { label: 'Offered', value: analytics.offered || 0, color: 'from-[#1f0f2f] to-[#1f0f2f]', iconBg: 'bg-[#a855f7]' },
@@ -10,9 +8,7 @@ export const metricCardConfigs = (
   { label: 'Withdrawn', value: analytics.withdrawn || 0, color: 'from-[#2a1f0a] to-[#2a1f0a]', iconBg: 'bg-[#f97316]' },
 ]
 
-export const conversionMetricConfigs = (
-  statusRates = {}
-) => [
+export const conversionMetricConfigs = (statusRates = {}) => [
   { label: 'Performance Rate', value: statusRates.performance_rate },
   { label: 'Success Rate', value: statusRates.success_rate, color: 'text-green-400' },
   { label: 'Applied → Interview', value: statusRates.applied_to_interview_conversion },

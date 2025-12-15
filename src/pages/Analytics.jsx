@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
 import { Sidebar } from '../components/Sidebar'
-import { Card, CardContent, CardHeader, CardTitle } from '../components/Card'
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts'
 import {
   metricCardConfigs,
   conversionMetricConfigs,
@@ -26,27 +24,48 @@ export default function Analytics() {
 
   const overview = data?.data?.overview || {}
 
+  const totalApplications = overview.totalApplications || 0
+  const workLocationType = overview.workLocationType || []
+  const workType = overview.workType || []
+
+  const remoteWork = workLocationType.find((item) => item.workLocationType === 'Remote') || {}
+  const hybridWork = workLocationType.find((item) => item.workLocationType === 'Hybrid') || {}
+  const onSiteWork = workLocationType.find((item) => item.workLocationType === 'On-Site') || {}
+
+  const jobWork = workType.find((item) => item.workType === 'Job') || {}
+  const internshipWork = workType.find((item) => item.workType === 'Internship') || {}
 
   const analytics = {
-    totalApplications: overview.totalApplications || 0,
+    totalApplications,
     applied: overview.applied || 0,
     interviewing: overview.interviewing || 0,
     offered: overview.offered || 0,
     accepted: overview.accepted || 0,
     rejected: overview.rejected || 0,
     withdrawn: overview.withdrawn || 0,
-    remoteJobs: overview.remoteJobs || 0,
-    hybridJobs: overview.hybridJobs || 0,
-    onSiteJobs: overview.onSiteJobs || 0,
-    Jobs: overview.Jobs || 0,
-    Internships: overview.Internships || 0,
+    remoteJobs: remoteWork.total || 0,
+    hybridJobs: hybridWork.total || 0,
+    onSiteJobs: onSiteWork.total || 0,
+    Jobs: jobWork.total || 0,
+    Internships: internshipWork.total || 0,
     sources: overview.sources || [],
-    status_rates: overview.status_rates || {},
-    workLocationType_rates: overview.workLocationType_rates || {},
-    jobType_rates: overview.jobType_rates || {},
+    status_rates: overview.overall_status_rates || {},
+    workLocationType_rates: {
+      remotePercentage: Number(remoteWork.workLocationTypePercentage || 0),
+      hybridPercentage: Number(hybridWork.workLocationTypePercentage || 0),
+      onSitePercentage: Number(onSiteWork.workLocationTypePercentage || 0),
+    },
+    jobType_rates: {
+      jobPercentage: Number(jobWork.workTypePercentage || 0),
+      internshipPercentage: Number(internshipWork.workTypePercentage || 0),
+    },
   }
 
-  const sourcePerformanceData = analytics.sources || []
+  const sourcePerformanceData = (analytics.sources || []).map((source) => ({
+    ...source,
+    offerRate: Number(source.offerRate || 0),
+    interviewRate: Number(source.interviewRate || 0),
+  }))
 
   const statusRates = analytics.status_rates || {}
   const workLocationRates = analytics.workLocationType_rates || {}
