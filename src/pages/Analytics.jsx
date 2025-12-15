@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Sidebar } from '../components/Sidebar'
 import {
   metricCardConfigs,
@@ -17,6 +18,7 @@ import useFetchAnalytics from '../hooks/useAnalytics/useFetchAnalytics'
 
 
 export default function Analytics() {
+  const navigate = useNavigate()
 
   const [range, setRange] = useState('all');
 
@@ -99,21 +101,31 @@ export default function Analytics() {
         <main className="flex-1 overflow-auto">
           {/* Header */}
           <div className="border-b border-white/10 bg-[#0b1021]/80 backdrop-blur">
-            <div className='flex justify-between items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6'>
+            <div className='flex flex-col md:flex-row md:justify-between md:items-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 gap-6'>
               <div>
-                <h1 className="text-3xl font-bold text-white">Analytics</h1>
-                <p className="text-slate-400 mt-1">Track your job search metrics and success rates</p>
+                <h1 className="text-2xl md:text-3xl font-bold text-white">Analytics</h1>
+                <p className="text-slate-400 mt-1 text-sm md:text-base">Track your job search metrics and success rates</p>
               </div>
 
-              <div className='flex items-center gap-3'>
-                <label htmlFor="range" className='text-slate-300 text-sm'>Range</label>
-                <select value={range} onChange={(e) => setRange(e.target.value)}  name="range" id="range" className='bg-[#0f172a] border border-white/10 text-slate-200 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm'>
-                  <option value="all">All Time</option>
-                  <option value="1m">1 Month</option>
-                  <option value="3m">3 Months</option>
-                  <option value="6m">6 Months</option>
-                  <option value="1y">1 Year</option>
-                </select>
+              <div className='flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-5'>
+                <div className='flex items-center gap-2 md:gap-3 w-full md:w-auto'>
+                  <label htmlFor="range" className='text-slate-300 text-xs md:text-sm whitespace-nowrap'>Range</label>
+                  <select value={range} onChange={(e) => setRange(e.target.value)} name="range" id="range" className='flex-1 md:flex-none bg-[#0f172a] border border-white/10 text-slate-200 px-2 md:px-3 py-2 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm'>
+                    <option value="all">All Time</option>
+                    <option value="1m">1 Month</option>
+                    <option value="3m">3 Months</option>
+                    <option value="6m">6 Months</option>
+                    <option value="1y">1 Year</option>
+                  </select>
+                </div>
+
+                <button
+                  onClick={() => navigate('/report')}
+                  className='w-full md:w-auto bg-[#0f172a] hover:bg-[#1e293b] text-white border border-white/10 px-3 md:px-4 py-2 rounded-md font-medium text-sm transition-colors flex items-center justify-center md:justify-start gap-2'
+                >
+                  <span>📊</span>
+                  <span>Get Full Report</span>
+                </button>
               </div>
             </div>
           </div>
@@ -124,7 +136,7 @@ export default function Analytics() {
             <MetricCards metricCards={metricCards} />
 
             {/* Charts Row 1 - Conversion Rates and Distributions */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
               <div className="lg:col-span-1">
                 <ConversionMetrics conversionMetrics={conversionMetrics} />
               </div>

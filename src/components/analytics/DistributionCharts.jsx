@@ -11,7 +11,7 @@ export function DistributionCharts({ workLocationData, workLocationRates, jobTyp
 
   return (
     <div className="lg:col-span-2">
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Work Location Distribution */}
         <Card className="bg-[#0b1021] border border-[#11172b] shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
           <CardHeader className="pb-2">

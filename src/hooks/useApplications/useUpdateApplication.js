@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateApplication } from "../../services/applicationServices";
+import { toast } from "react-toastify";
 
 export default function useUpdateApplication() {
     const qc = useQueryClient();
@@ -31,9 +32,11 @@ export default function useUpdateApplication() {
             });
 
             console.log("Application updated successfully, cache updated", response, appId);
+            toast.success("Application updated successfully!");
         },
         onError: (error) => {
             console.error("Failed to update application:", error.message);
+            toast.error(error.message || "Failed to update application. Please try again.");
         }
     });
 }
