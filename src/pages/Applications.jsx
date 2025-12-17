@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Sidebar } from '../components/Sidebar'
 import { Card, CardContent, CardHeader, CardTitle } from '../components/Card'
 import { Button } from '../components/Button'
 import { Input } from '../components/Input'
 import { useNavigate } from 'react-router-dom'
-import { Trash2, Edit2, MapPin, FileText, DollarSign } from 'lucide-react'
+import { Trash2, Edit2, MapPin, FileText, DollarSign, Search } from 'lucide-react'
 
 import useFetchApplications from '../hooks/useApplications/useFetchApplications'
 import useDeleteApplication from '../hooks/useApplications/useDeleteApplication'
@@ -16,7 +16,39 @@ export default function Applications() {
   const deleteApplicationMutation = useDeleteApplication()
 
   const navigate = useNavigate()
-  const [filter, setFilter] = useState('all')
+  const [filterStatus, setFilterStatus] = useState('all')
+  const [filterType, setFilterType] = useState('all')
+  const [gridView, setGridView] = useState(true)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [debouncedSearch, setDebouncedSearch] = useState('')
+
+  // Debounce search input
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(searchQuery)
+    }, 300) // 300ms debounce delay
+
+    return () => {
+      clearTimeout(handler)
+    }
+  }, [searchQuery])
+
+
+  const filterStatusOpt = [
+    { label: 'All', value: 'all' },
+    { label: 'Applied', value: 'applied' },
+    { label: 'Interviewing', value: 'interviewing' },
+    { label: 'Offered', value: 'offered' },
+    { label: 'Accepted', value: 'accepted' },
+    { label: 'Rejected', value: 'rejected' },
+    { label: 'Withdrawn', value: 'withdrawn' },
+  ]
+
+  const filterTypeOpt = [
+    { label: 'All Types', value: 'all' },
+    { label: 'Job', value: 'job' },
+    { label: 'Internship', value: 'internship' },
+  ]
 
   const getStatusColor = (status) => {
     const statusLower = status?.toLowerCase()
@@ -70,11 +102,20 @@ export default function Applications() {
   }
 
   const applications = data?.data?.applications || []
-  console.log(applications)
+  //console.log(applications)
 
-  const filteredApps = filter === 'all'
-    ? applications
-    : applications.filter(app => app.applicationStatus?.toLowerCase() === filter)
+  const filteredApps = applications.filter((app) => {
+    const statusMatch = filterStatus === 'all' || app.applicationStatus.toLowerCase() === filterStatus.toLowerCase()
+    const typeMatch = filterType === 'all' || app.workType.toLowerCase() === filterType.toLowerCase()
+    
+    // Search filter - search across company, role, location
+    const searchMatch = !debouncedSearch || 
+      app.companyName?.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+      app.role?.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+      app.location?.toLowerCase().includes(debouncedSearch.toLowerCase())
+    
+    return statusMatch && typeMatch && searchMatch
+  })
 
   // Handle delete application
   const handleDelete = (appId) => {
@@ -109,41 +150,50 @@ export default function Applications() {
           {/* Filter & Search */}
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
             {/* Search */}
-            <Input
-              placeholder="Search applications..."
-              className="flex-1"
-            />
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400" size={18} />
+              <input
+                type="text"
+                placeholder="Search by company, role, or location..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-slate-800 border border-white/10 text-slate-300 pl-10 pr-3 py-2 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm placeholder:text-slate-500"
+              />
+            </div>
             {/* Status Filter */}
-            <div className="relative inline-block w-full sm:w-48">
-              <button className="w-full px-4 py-2 rounded-lg bg-slate-800 text-slate-300 hover:text-white border border-slate-700 flex items-center justify-between">
-                <span>All Status</span>
-                <span>▼</span>
-              </button>
-              <div className="absolute top-full right-0 mt-1 w-48 bg-slate-800 border border-slate-700 rounded-lg shadow-lg z-10 hidden">
-                <div className="p-2 space-y-1">
-                  {['All Status', 'Applied', 'Interviewing', 'Offered', 'Withdrawn', 'Rejected'].map(s => (
-                    <div key={s} className="px-3 py-2 hover:bg-slate-700 rounded cursor-pointer text-slate-300">{s}</div>
-                  ))}
-                </div>
-              </div>
+            <div>
+              <select
+                value={filterStatus}
+                onChange={(e) => setFilterStatus(e.target.value)}
+                className="bg-slate-800 border border-white/10 text-slate-300 px-3 py-2 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
+              >
+                {filterStatusOpt.map((opt) => (
+                  <option key={opt.value} value={opt.value}>{opt.label}</option>
+                ))}
+              </select>
             </div>
             {/* Type Filter */}
             <div className="relative inline-block w-full sm:w-48">
-              <button className="w-full px-4 py-2 rounded-lg bg-slate-800 text-slate-300 hover:text-white border border-slate-700 flex items-center justify-between">
-                <span>All Types</span>
-                <span>▼</span>
-              </button>
+              <select
+                value={filterType}
+                onChange={(e) => setFilterType(e.target.value)}
+                className="bg-slate-800 border border-white/10 text-slate-300 px-3 py-2 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm w-full"
+              >
+                {filterTypeOpt.map((opt) => (
+                  <option key={opt.value} value={opt.value}>{opt.label}</option>
+                ))}
+              </select>
             </div>
             {/* View Toggle */}
             <div className="flex gap-2">
-              <button className="px-3 py-2 rounded-lg bg-slate-700 text-white">⊞</button>
-              <button className="px-3 py-2 rounded-lg bg-slate-800 text-slate-400">≡</button>
+              <button className={`px-3 py-2 rounded-lg ${gridView ? 'bg-slate-700 text-white' : 'bg-slate-800 text-slate-400'}`} onClick={() => setGridView(true)}>⊞</button>
+              <button className={`px-3 py-2 rounded-lg ${!gridView ? 'bg-slate-700 text-white' : 'bg-slate-800 text-slate-400'}`} onClick={() => setGridView(false)}>≡</button>
             </div>
           </div>
 
           {/* Applications Grid */}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className={`${gridView ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6' : 'flex flex-col gap-4'}`}>
             {filteredApps.map((app) => (
               <Card key={app._id} className="bg-slate-900 border-slate-800 hover:border-slate-600 transition flex flex-col">
                 <CardHeader>
@@ -197,9 +247,9 @@ export default function Applications() {
 
                 {/* Footer Actions */}
                 <div className="p-4 border-t border-slate-700 flex gap-2">
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
+                  <Button
+                    variant="ghost"
+                    size="sm"
                     className="flex-1 gap-2"
                     onClick={() => navigate(`/update-application/${app._id}`)}
                   >
@@ -210,9 +260,9 @@ export default function Applications() {
                     <FileText size={16} />
                     PDF
                   </Button>
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
+                  <Button
+                    variant="ghost"
+                    size="sm"
                     className="flex-1 gap-2 text-red-400 hover:text-red-300"
                     onClick={() => handleDelete(app._id)}
                     disabled={deleteApplicationMutation.isLoading}

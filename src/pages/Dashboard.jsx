@@ -15,13 +15,9 @@ export default function Dashboard() {
   const { data: applicationsData, isLoading: appsLoading, isError: appsError } = useFetchApplications()
   const { data: analyticsData, isLoading: analyticsLoading, isError: analyticsError } = useFetchAnalytics('all')
   const navigate = useNavigate()
-  console.log(applicationsData)
+  //console.log(applicationsData)
 
   const user = data?.data?.user
-  if (applicationsData) {
-    console.log(applicationsData.data.applications.slice(0, 5)
-    )
-  }
 
   const overview = analyticsData?.data?.overview || {}
   const totalApplications = overview.totalApplications || 0

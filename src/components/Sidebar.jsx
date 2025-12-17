@@ -26,7 +26,7 @@ export function Sidebar() {
     { label: 'Dashboard', path: '/dashboard', icon: BarChart3 },
     { label: 'Applications', path: '/applications', icon: FileText },
     { label: 'Add Application', path: '/add-application', icon: Plus },
-    { label: 'Map View', path: '/map-view', icon: Map },
+    //{ label: 'Map View', path: '/map-view', icon: Map },
     { label: 'Analytics', path: '/analytics', icon: BarChart3 },
   ]
 

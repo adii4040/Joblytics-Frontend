@@ -31,7 +31,7 @@ function App() {
             <Route path="/applications" element={<Applications />} />
             <Route path="/add-application" element={<AddApplication />} />
             <Route path="/update-application/:appId" element={<UpdateApplication />} />
-            <Route path="/map-view" element={<MapView />} />
+            {/* <Route path="/map-view" element={<MapView />} /> */}
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/report" element={<Report />} />
           </Route>

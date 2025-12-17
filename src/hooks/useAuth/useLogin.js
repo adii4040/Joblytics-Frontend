@@ -12,7 +12,7 @@ export function useLogin() {
         onSuccess: (response) => {
             // Set the FULL response to match fetchCurrentUser structure
             qc.setQueryData(["currentUser"], response);
-            console.log("Login success, cache set:", response);
+            //console.log("Login success, cache set:", response);
             toast.success("Login successful! Welcome back.");
             navigate("/dashboard");
         },
