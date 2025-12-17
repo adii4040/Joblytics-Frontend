@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import Landing from './pages/Landing'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import VerifyEmail from './pages/VerifyEmail'
 import Dashboard from './pages/Dashboard'
 import Applications from './pages/Applications'
 import AddApplication from './pages/AddApplication'
@@ -38,6 +39,7 @@ function App() {
 
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/user/:id/verify-email/:emailVerificationToken" element={<VerifyEmail />} />
         </Routes>
       </AuthLoader>
       <ToastContainer

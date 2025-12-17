@@ -1,4 +1,4 @@
-import { registerUserRoute, loginUserRoute, getCurrentUserRoute, logoutUserRoute } from './routes.js'
+import { registerUserRoute, loginUserRoute, getCurrentUserRoute, logoutUserRoute, verifyEmailRoute } from './routes.js'
 
 const registerUser = async (formData) => {
     const res = await fetch(registerUserRoute, {
@@ -73,4 +73,23 @@ const logoutUser = async () => {
     return data
 }
 
-export { registerUser, loginUser, fetchCurrentUser, logoutUser }
+const verifyEmailUser = async ({ id, emailVerificationToken }) => {
+    const res = await fetch(verifyEmailRoute(id, emailVerificationToken), {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include'
+    })
+
+    if (!res.ok) {
+        const errorData = await res.json()
+        console.error('❌ Backend error:', errorData)
+        throw new Error(errorData.message || "Email verification failed")
+    }
+
+    const data = await res.json()
+    return data
+}
+
+export { registerUser, loginUser, fetchCurrentUser, logoutUser, verifyEmailUser }

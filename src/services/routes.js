@@ -4,6 +4,7 @@ const registerUserRoute = '/api/v1/user/register';
 const loginUserRoute = '/api/v1/user/login';
 const logoutUserRoute = '/api/v1/user/logout';
 const getCurrentUserRoute = '/api/v1/user/current-user';
+const verifyEmailRoute = (id, emailVerificationToken) => `/api/v1/user/${id}/verify-email/${emailVerificationToken}`;
 
 
 
@@ -25,6 +26,7 @@ export {
     loginUserRoute,
     logoutUserRoute,
     getCurrentUserRoute,
+    verifyEmailRoute,
     uploadApplicationRoute,
     getApplicationsRoute,
     getApplicationByIdRoute,

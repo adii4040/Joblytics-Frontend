@@ -159,7 +159,7 @@ export default function Dashboard() {
               </CardContent>
             </Card>
 
-            <Card className="bg-slate-900 border-slate-800 cursor-pointer hover:border-blue-500/50 transition">
+            {/* <Card className="bg-slate-900 border-slate-800 cursor-pointer hover:border-blue-500/50 transition">
               <CardContent className="pt-6">
                 <div className="text-purple-400 mb-2">🗺️</div>
                 <h3 className="text-white font-semibold mb-2">View Map</h3>
@@ -168,7 +168,7 @@ export default function Dashboard() {
                   Open Map →
                 </Button>
               </CardContent>
-            </Card>
+            </Card> */}
 
             <Card className="bg-slate-900 border-slate-800 cursor-pointer hover:border-blue-500/50 transition">
               <CardContent className="pt-6">
