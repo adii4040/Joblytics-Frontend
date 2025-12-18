@@ -222,6 +222,6 @@ This project represents an **MVP-level frontend**, built with a focus on correct
 ## Author
 
 **Aditya Kumar Singh**  
-Frontend Developer  
+Fullstack Developer  
 
 Built as a real-world project to explore analytics-driven UI, decision-oriented dashboards, and structured frontend architecture.
