@@ -1,166 +1,227 @@
-# Joblytic - Job Application Analytics Platform
+# Joblytics – Frontend
 
-A complete job application tracking and analytics platform built with React, Vite, Tailwind CSS, and modern web technologies. Designed to help job seekers organize applications, track progress, and gain actionable insights through intelligent analytics.
+Joblytics is a job application tracking and analytics web application that helps users go beyond maintaining spreadsheets and instead understand how their job search is actually performing. The frontend is responsible for application management, visual analytics, and presenting human-readable performance insights based on user data.
 
-## 🎯 Features
+This repository contains the **frontend implementation** of Joblytics.
 
-### Landing Page
-- **Hero Section**: Compelling value proposition with animated gradients
-- **Features Showcase**: 6 key features with icons and descriptions
-- **How It Works**: Simple 3-step process visualization
-- **Social Proof**: Stats and testimonials
-- **Responsive Design**: Mobile-friendly navigation
+---
 
-### Authentication
-- **Signup Page**: Create account with full name, username, email, password
-- **Login Page**: Email/password authentication
-- **Mock Auth**: Demo mode allows testing without backend
+## Why Joblytics (Problem Statement)
 
-### Dashboard
-- **Overview Stats**: Total applications, interviewing, offers, rejected
-- **Recent Applications**: Quick view of latest submissions
-- **Quick Actions**: Links to analytics, map view, and add application
-- **Responsive Grid Layout**: Works on all screen sizes
+Most candidates track job applications using Excel, Google Sheets, or Notion. While these tools store data, they do not explain performance. Users are left guessing why they are not getting interviews, offers, or acceptances.
 
-### Applications Management
-- **Applications List**: Grid view of all applications (3 columns on desktop)
-- **Application Cards**: 
-  - Company logo/badge
-  - Role and company name
-  - Status badges (Applied, Interviewing, Offered, Rejected, etc.)
-  - Work type (Remote/Hybrid/On-site)
-  - Job type (Full-time/Internship)
-  - Salary range
-  - Location
-  - Applied date
-  - Action buttons (Edit, View PDF, Delete)
-- **Filter Tabs**: Filter by status (All, Applied, Interviewing, Offered, Rejected)
-- **Responsive Design**: Adapts to mobile, tablet, and desktop
+Joblytics addresses this gap by:
+- Structuring job application data
+- Automatically calculating conversion metrics
+- Categorizing performance levels
+- Presenting actionable, readable insights instead of raw numbers
 
-### Add Application Form
-- **Company Details**: Company name, role
-- **Application Type**: Job or Internship
-- **Work Type**: Remote, Hybrid, or On-site
-- **Salary Tracking**: Currency selector with min/max range
-- **Status Selection**: Track current application status
-- **Location Tracking**: With map icon
-- **Applied Date**: Calendar picker
-- **Job Description Upload**: PDF file upload
-- **Notes Section**: Additional notes and details
-- **Form Validation**: Required fields validation
+This frontend focuses on **clarity, decision support, and usability**, not just CRUD operations.
 
-### Analytics Dashboard
-- **Key Metrics**: Total applications, success rate, interview rate, offer rate
-- **Status Distribution**: Donut chart showing application statuses
-- **Timeline**: Bar chart of applications by month
-- **Work Location**: Pie chart (Remote/Hybrid/On-site distribution)
-- **Job Type**: Pie chart (Full-time vs Internship)
-- **Conversion Rates**: Visual progress bars for:
-  - Applied → Interview Conversion
-  - Interview → Offer Conversion
-  - Offer Acceptance Rate
-  - Overall Success Rate
-- **Source Performance Table**: Detailed metrics for each job source
-  - Total applications per source
-  - Offers by source
-  - Interview rates
-  - Success rate percentage
-- **Quick Insights**: Key takeaways and recommendations
+---
 
-### Map View
-- **Location Visualization**: See all applications on a map
-- **Location List**: Sidebar showing applications by city
-- **Status Indicators**: Visual status on location cards
-- **Expandable**: Ready for Leaflet/Google Maps integration
+## Current Scope (What This Frontend Does Today)
 
-### Navigation
-- **Responsive Sidebar**: Desktop navigation sidebar with mobile toggle
-- **User Profile**: Shows logged-in user info
-- **Quick Links**: Dashboard, Applications, Add Application, Map View, Analytics
-- **Logout Button**: Easy account logout
+This frontend currently supports:
+- Secure authentication flow
+- Job application CRUD operations
+- Analytics dashboards
+- Performance reports with explanations
 
-## 🛠️ Tech Stack
+It does **not** yet include automation like browser extensions or external job imports.
 
-- **Frontend Framework**: React 18
-- **Build Tool**: Vite 5
-- **Styling**: Tailwind CSS 3
-- **UI Components**: Custom components + Radix UI integration ready
-- **Charts**: Recharts for data visualization
-- **State Management**: React Context + React Query
-- **Routing**: React Router v6
-- **Icons**: Lucide React
-- **HTTP Client**: Axios (ready for API integration)
-- **Dark Theme**: Full dark mode by default
+---
 
-## 📁 Project Structure
+## Tech Stack
 
-```
-src/
-├── App.jsx                 # Main app component with routing
-├── main.jsx               # Entry point
-├── index.css              # Global styles with Tailwind
-├── components/
-│   ├── Navbar.jsx         # Top navigation
-│   ├── Sidebar.jsx        # Dashboard sidebar
-│   ├── Button.jsx         # Reusable button component
-│   ├── Input.jsx          # Reusable input component
-│   ├── Card.jsx           # Card components
-│   └── UI.jsx             # Additional UI components
-├── context/
-│   └── AuthContext.jsx    # Authentication context
-├── lib/
-│   └── utils.js           # Utility functions
-├── pages/
-│   ├── Landing.jsx        # Landing page
-│   ├── Login.jsx          # Login page
-│   ├── Signup.jsx         # Signup page
-│   ├── Dashboard.jsx      # Main dashboard
-│   ├── Applications.jsx   # Applications list
-│   ├── AddApplication.jsx # Add new application form
-│   ├── Analytics.jsx      # Analytics dashboard
-│   └── MapView.jsx        # Map view
-├── config/
-│   └── api.js            # API configuration (ready for setup)
-└── styles/
-    └── variables.css      # CSS variables (ready for setup)
-```
+### Core
+- **React (Vite)**
+- **JavaScript (ES6+)**
+- **Tailwind CSS**
+- **Shadcn UI**
+- **React Router DOM**
+- **React Query (TanStack Query)**
 
-## 🚀 Getting Started
+### Visualization
+- **Recharts**
 
-### Prerequisites
-- Node.js 18+
-- npm or yarn
+### Auth & API
+- Cookie-based authentication (handled by backend)
+- Protected routes on the frontend
+- Axios / Fetch for API communication
 
-### Installation
+---
 
-1. **Navigate to project directory**:
-   ```bash
-   cd c:\Users\redHair\Desktop\Jobylitcs
-   ```
+## Application Architecture (Frontend)
 
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
+The frontend follows a **page + component driven architecture**:
 
-3. **Start development server**:
-   ```bash
-   npm run dev
-   ```
+- `Pages/` – Route-level pages (Dashboard, Applications, Analytics, Reports)
+- `components/` – Reusable UI components
+- `hooks/` – Tanstack query handler as custom hooks
+- `services/` – API interaction logic
+- `helper/` – Protected Routes and Auth loader
 
-4. **Open browser**:
-   - Navigate to `http://localhost:3000`
-   - The app will automatically reload on file changes
+The architecture keeps UI, data fetching, and state management clearly separated.
 
-### Available Commands
+---
 
-```bash
-# Start development server
-npm run dev
+## Authentication Flow (Frontend Perspective)
 
-# Build for production
-npm run build
+1. User logs in or registers
+2. Backend sets a secure HttpOnly cookie
+3. Frontend checks authentication status on app load
+4. Protected routes are conditionally rendered
+5. Session persists across refreshes without storing tokens in localStorage
 
-# Preview production build
-npm run preview
-```
+This approach avoids exposing sensitive tokens to XSS attacks.
+
+---
+
+## Core Features
+
+### 1. Application Management
+
+- Add, edit, delete job applications
+- Track:
+  - Company
+  - Role
+  - Job type (Job / Internship)
+  - Work location (Remote / Hybrid / On-site)
+  - Salary
+  - Application source (LinkedIn, Referral, Company Website, etc.)
+  - Application status
+- Card-based layout for better readability compared to spreadsheets or tables
+
+---
+
+### 2. Analytics Dashboard
+
+The analytics dashboard automatically computes and displays:
+
+- Total applications
+- Application status distribution
+- Conversion funnel:
+  - Applied → Interview
+  - Interview → Offer
+  - Offer → Acceptance
+- Job type distribution
+- Work location distribution
+- Application source performance
+
+Both visual charts and raw counts are shown to maintain transparency.
+
+---
+
+### 3. Performance Metrics
+
+The frontend presents computed metrics such as:
+
+- Performance Rate
+- Success Rate
+- Interview Rate
+- Offer Rate
+- Offer Acceptance Rate
+- Rejection Rate
+
+Each metric includes:
+- A performance category (Very Weak → Excellent)
+- A brief explanation of what it indicates
+- Contextual feedback to guide improvement
+
+All values are rendered dynamically based on user data.
+
+---
+
+### 4. Source Effectiveness Analysis
+
+Users can analyze application performance across sources such as:
+- LinkedIn
+- Referrals
+- Company Websites
+- AngelList
+- Other platforms
+
+For each source, the frontend displays:
+- Interview rate
+- Offer rate
+- Acceptance rate
+- Data sufficiency indicators
+- Human-readable insights and recommendations
+
+This helps users decide where to focus their effort.
+
+---
+
+### 5. Job Type & Location Analysis
+
+Analytics are broken down by:
+- Job vs Internship
+- Remote vs Hybrid vs On-site
+
+This reveals patterns such as:
+- Resume effectiveness by category
+- Interview conversion differences
+- Acceptance behavior by work location
+
+---
+
+### 6. Performance Report Page
+
+The report page provides a **narrative summary** of the job search, including:
+- Overall performance snapshot
+- Funnel effectiveness
+- Strengths and weaknesses
+- Clear explanations instead of raw charts
+
+The goal is to answer:
+**What is happening, why it is happening, and what should be improved next.**
+
+---
+
+## Design Philosophy
+
+- Clarity over complexity
+- Insights over charts
+- Honest data representation
+- No black-box decisions
+
+If a metric is shown, it is explainable.
+
+---
+
+## Limitations (Current)
+
+- Manual job application entry is required
+- No browser extension or auto-import yet
+- Insights improve with higher data volume
+- Analytics correctness depends on backend computations
+
+These are planned areas for improvement.
+
+---
+
+## Why This Is Better Than Excel or Sheets
+
+Excel and Google Sheets store data. Joblytics explains data.
+
+The frontend:
+- Enforces structured input
+- Automatically computes funnels
+- Categorizes performance meaningfully
+- Removes the need for manual analysis
+
+---
+
+## Project Status
+
+This project represents an **MVP-level frontend**, built with a focus on correctness, clarity, and real-world job search use cases. It is actively being improved.
+
+---
+
+## Author
+
+**Aditya Kumar Singh**  
+Frontend Developer  
+
+Built as a real-world project to explore analytics-driven UI, decision-oriented dashboards, and structured frontend architecture.
