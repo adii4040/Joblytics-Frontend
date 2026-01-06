@@ -18,7 +18,10 @@ import AnalyticsDemo from './pages/AnalyticsDemo'
 import AuthLoader from './helper/AuthLoader'
 import ProtectedRoutes from './helper/protectedRoute'
 
+import { useCurrentUser } from "./hooks/useAuth/useCurrentUser";
+
 function App() {
+  const { data } = useCurrentUser();
   return (
     <>
       <AuthLoader>
@@ -37,8 +40,8 @@ function App() {
             <Route path="/report" element={<Report />} />
           </Route>
 
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={!data?.data?.user ? <Login /> : <Navigate to="/dashboard" />} />
+          <Route path="/signup" element={!data?.data?.user ? <Signup /> : <Navigate to="/dashboard" />} />
           <Route path="/user/:id/verify-email/:emailVerificationToken" element={<VerifyEmail />} />
         </Routes>
       </AuthLoader>
