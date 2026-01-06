@@ -62,7 +62,7 @@ export default function AddApplication() {
     }
 
     uploadMutation.mutate(formPayload)
-    console.log('Form submitted:', formPayload)
+    //console.log('Form submitted:', formPayload)
     navigate('/applications')
   }
 

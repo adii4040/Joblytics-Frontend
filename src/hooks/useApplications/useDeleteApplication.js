@@ -10,7 +10,7 @@ export default function useDeleteApplication() {
             // Update the cache by filtering out the deleted application
             qc.setQueryData(["applications"], (oldData) => {
                 if (!oldData) return oldData;
-                console.log(appId)
+                //console.log(appId)
                 return {
                     ...oldData,
                     data: {
@@ -21,7 +21,7 @@ export default function useDeleteApplication() {
                 };
             });
             qc.invalidateQueries({ queryKey: ["analytics"] });
-            console.log("Application deleted successfully, cache updated");
+            //console.log("Application deleted successfully, cache updated");
             toast.success("Application deleted successfully!");
         },
         onError: (error) => {

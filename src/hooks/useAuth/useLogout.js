@@ -14,7 +14,7 @@ export function useLogout() {
             qc.clear();
             qc.setQueryData(["currentUser"], null);
             qc.invalidateQueries({ queryKey: ["analytics"] });
-            console.log("Logout success, all cache cleared");
+            //console.log("Logout success, all cache cleared");
             toast.success("Logged out successfully!");
             navigate("/");
         },

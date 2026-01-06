@@ -13,7 +13,7 @@ export default function useUploadApplications() {
             qc.invalidateQueries({ queryKey: ["applications"] });
             qc.invalidateQueries({ queryKey: ["analytics"] });
 
-            console.log("Upload success, cache invalidated", response);
+            //console.log("Upload success, cache invalidated", response);
             toast.success("Application added successfully!");
             navigate("/applications");
         },

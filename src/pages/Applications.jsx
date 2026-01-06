@@ -120,7 +120,7 @@ export default function Applications() {
   // Handle delete application
   const handleDelete = (appId) => {
     if (window.confirm('Are you sure you want to delete this application?')) {
-      console.log(appId)
+      //console.log(appId)
       deleteApplicationMutation.mutate(appId)
     }
   }

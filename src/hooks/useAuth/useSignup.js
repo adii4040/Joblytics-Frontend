@@ -9,7 +9,7 @@ export default function useSignup() {
     return useMutation({
         mutationFn: registerUser,
         onSuccess: (data) => {
-            console.log(data.user)
+            //console.log(data.user)
             toast.success("Account created successfully! We have sent a verification email to ");
             setTimeout(() => {
                 navigate("/login");
